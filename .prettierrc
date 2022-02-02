@@ -1,0 +1,14 @@
+{
+  "trailingComma": "es5",
+  "semi": true,
+  "printWidth": 100,
+  "singleQuote": true,
+  "overrides": [
+    {
+      "files": "*.ts",
+      "options": {
+        "parser": "typescript"
+      }
+    }
+  ]
+}
