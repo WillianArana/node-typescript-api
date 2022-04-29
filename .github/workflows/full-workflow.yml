@@ -3,7 +3,13 @@
 
 name: Complete workflow
 
-on: ['push']
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
@@ -33,3 +39,12 @@ jobs:
 
       - name: Run all tests
         run: npm test
+
+      - name: Deploy application
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: 'api-with-test'
+          heroku_email: 'willian.arana@fatec.sp.gov.br'
+          buildpack: 'https://github.com/zidizei/heroku-buildpack-tsc#v2.0'
