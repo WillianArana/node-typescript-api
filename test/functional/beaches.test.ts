@@ -58,7 +58,9 @@ describe('Beache functional tests', () => {
 
       expect(response.status).toBe(422);
       expect(response.body).toEqual({
-        error:
+        code: 422,
+        error: 'Unprocessable Entity',
+        message:
           'Beach validation failed: lat: Cast to Number failed for value "invalid_string" (type string) at path "lat"',
       });
     });
@@ -81,7 +83,8 @@ describe('Beache functional tests', () => {
         .send(newBeach);
       expect(response.status).toBe(500);
       expect(response.body).toEqual({
-        error: 'Internal Server Error',
+        code: 500,
+        message: 'Something went wrong!',
       });
     });
   });
