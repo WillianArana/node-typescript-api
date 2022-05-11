@@ -6,10 +6,10 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/src/index.js",
-    "start:dev": "ts-node-dev 'src/index.ts' | pino-pretty -c",
+    "start:dev": "ts-node-dev --transpile-only 'src/index.ts' | pino-pretty -c",
     "lint": "eslint ./src ./test --ext .ts",
     "lint:fix": "eslint ./src ./test --ext .ts --fix",
-    "test": "npm run test:unit && npm run test:funtional",
+    "test": "npm run lint && npm run style:check && npm run test:unit && npm run test:funtional",
     "test:funtional": "jest --projects test/ --runInBand",
     "test:unit": "jest",
     "style:check": "prettier --check 'src/**/*.ts' 'test/**/*.ts'",
@@ -39,6 +39,7 @@
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/express-pino-logger": "^4.0.3",
+    "@types/express-rate-limit": "^6.0.0",
     "@types/http-status-codes": "^1.2.0",
     "@types/jest": "^27.4.0",
     "@types/jsonwebtoken": "^8.5.8",
@@ -50,6 +51,7 @@
     "@types/pino": "^7.0.5",
     "@types/pino-pretty": "^4.7.5",
     "@types/supertest": "^2.0.11",
+    "@types/swagger-ui-express": "^4.1.3",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
     "eslint": "^8.7.0",
@@ -71,11 +73,14 @@
     "config": "^3.3.7",
     "cors": "^2.8.5",
     "express": "^4.17.2",
+    "express-openapi-validator": "^4.13.7",
+    "express-rate-limit": "^6.4.0",
     "http-status-codes": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "module-alias": "^2.2.2",
     "mongoose": "^6.2.6",
-    "pino": "^7.11.0"
+    "pino": "^7.11.0",
+    "swagger-ui-express": "^4.3.0"
   }
 }
