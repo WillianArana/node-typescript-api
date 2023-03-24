@@ -5,9 +5,35 @@ import stormglassNormalizedResponseFixture from '@test/fixtures/stormglass_norma
 
 jest.mock('@src/util/request');
 
+class ServTest {
+  async method(): Promise<string> {
+    return Promise.resolve('ok');
+  }
+}
+
+const service = new ServTest();
+
+export const testableFunction = async () => {
+  return EXPORTED_CONSTANT();
+};
+
+//constant being exported from constants.ts
+export const EXPORTED_CONSTANT = async () => ({
+  value: await service.method(),
+});
+
 describe('StormGlass client', () => {
   const MockedRequestClass = HTTPUtil.Request as jest.Mocked<typeof HTTPUtil.Request>;
   const mockedRequest = new HTTPUtil.Request() as jest.Mocked<HTTPUtil.Request>;
+
+  // unit test I have written
+  it('message trigger for sendInteractiveWhatsapp', async () => {
+    jest.spyOn(service, 'method').mockImplementation(async () => {
+      return 'some_value';
+    });
+    expect(await testableFunction()).toEqual({ value: 'some_value' });
+  });
+
   it('should return the normalized forecast fromt the StormGlass service', async () => {
     const lat = -33.785685;
     const lng = 151.285684;
